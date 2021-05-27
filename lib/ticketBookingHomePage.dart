@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_card_swipper/flutter_card_swiper.dart';
+import 'package:badges/badges.dart';
+import 'components/different_tickets.dart';
+import 'components/myBookings.dart';
 
 class TicketBookingHomePage extends StatefulWidget {
   @override
@@ -7,12 +11,18 @@ class TicketBookingHomePage extends StatefulWidget {
 
 class _TicketBookingHomePageState extends State<TicketBookingHomePage> {
   int pageIndex = 0;
-  late PageController pageController; //
+  PageController pageController = PageController(); //
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   pageController = PageController();
+  // }
 
   @override
-  void initState() {
-    super.initState();
-    pageController = PageController();
+  void dispose() {
+    super.dispose();
+    pageController.dispose();
   }
 
   @override
@@ -29,6 +39,63 @@ class _TicketBookingHomePageState extends State<TicketBookingHomePage> {
                   Container(
                     height: MediaQuery.of(context).size.height / 4,
                     decoration: BoxDecoration(color: Colors.blue),
+                    child: Swiper(
+                      itemCount: 4,
+                      controller: SwiperController(),
+                      pagination: SwiperPagination(),
+                      itemBuilder: (context, index) {
+                        return Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(23),
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 8),
+                                      child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Icon(
+                                              Icons.monetization_on,
+                                              color: Colors.orange.shade300,
+                                            ),
+                                            Text(
+                                              '400 points',
+                                              style: TextStyle(
+                                                  color:
+                                                      Colors.orange.shade300),
+                                            )
+                                          ]),
+                                    ),
+                                    CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8),
+                                        child: Badge(
+                                          child: Icon(Icons.settings_outlined),
+                                          position: BadgePosition.bottomEnd(),
+                                          padding: EdgeInsets.all(8),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height / 4.8,
@@ -69,106 +136,28 @@ class _TicketBookingHomePageState extends State<TicketBookingHomePage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              children: [
-                                Container(
-                                  height: 57,
-                                  width: 57,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border:
-                                        Border.all(color: Colors.grey.shade200),
-                                  ),
-                                  child: Center(
-                                      child: Icon(Icons.airplanemode_on_sharp,
-                                          color: Colors.orange)),
-                                ),
-                                Text(
-                                  'Plane',
-                                  style: TextStyle(fontSize: 17),
-                                )
-                              ],
+                            DifferentTickets(
+                              icon: Icon(Icons.airplanemode_on_sharp,
+                                  color: Colors.orange),
+                              ticket: 'Plane',
                             ),
-                            Column(
-                              children: [
-                                Container(
-                                  height: 57,
-                                  width: 57,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border:
-                                        Border.all(color: Colors.grey.shade200),
-                                  ),
-                                  child: Center(
-                                      child: Icon(Icons.train,
-                                          color: Colors.orange.shade200)),
-                                ),
-                                Text(
-                                  'Train',
-                                  style: TextStyle(fontSize: 17),
-                                )
-                              ],
+                            DifferentTickets(
+                              icon: Icon(Icons.train,
+                                  color: Colors.orange.shade200),
+                              ticket: 'Train',
                             ),
-                            Column(
-                              children: [
-                                Container(
-                                  height: 57,
-                                  width: 57,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border:
-                                        Border.all(color: Colors.grey.shade200),
-                                  ),
-                                  child: Center(
-                                      child: Icon(Icons.hotel,
-                                          color: Colors.blue)),
-                                ),
-                                Text(
-                                  'Hotel',
-                                  style: TextStyle(fontSize: 17),
-                                )
-                              ],
+                            DifferentTickets(
+                              icon: Icon(Icons.hotel, color: Colors.blue),
+                              ticket: 'Hotel',
                             ),
-                            Column(
-                              children: [
-                                Container(
-                                  height: 57,
-                                  width: 57,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border:
-                                        Border.all(color: Colors.grey.shade200),
-                                  ),
-                                  child: Center(
-                                      child: Icon(Icons.bus_alert,
-                                          color: Colors.green)),
-                                ),
-                                Text(
-                                  'Bus',
-                                  style: TextStyle(fontSize: 17),
-                                )
-                              ],
+                            DifferentTickets(
+                              icon: Icon(Icons.bus_alert, color: Colors.green),
+                              ticket: 'Bus',
                             ),
-                            Column(
-                              children: [
-                                Container(
-                                  height: 57,
-                                  width: 57,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border:
-                                        Border.all(color: Colors.grey.shade200),
-                                  ),
-                                  child: Center(
-                                      child:
-                                          Icon(Icons.apps, color: Colors.grey)),
-                                ),
-                                Text(
-                                  'More',
-                                  style: TextStyle(fontSize: 17),
-                                )
-                              ],
-                            ),
+                            DifferentTickets(
+                              icon: Icon(Icons.apps, color: Colors.grey),
+                              ticket: 'More',
+                            )
                           ],
                         ),
                       )
@@ -223,217 +212,33 @@ class _TicketBookingHomePageState extends State<TicketBookingHomePage> {
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width / 1.5,
-                              margin: EdgeInsets.only(right: 15),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey.shade200,
-                                ),
-                                borderRadius: BorderRadius.circular(10),
+                            MyBookings(
+                              bookingVehicle: 'Train',
+                              bookingVehicleIcon: Icon(
+                                Icons.train,
+                                color: Colors.orange[350],
                               ),
-                              padding: EdgeInsets.all(13),
-                              child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.train,
-                                          color: Colors.orange[350],
-                                        ),
-                                        Text(
-                                          'Train',
-                                          style: TextStyle(
-                                            color: Colors.orange[300],
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Text(
-                                          '2 Seats',
-                                          style: TextStyle(
-                                            color: Colors.orange[200],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Divider(
-                                      color: Colors.grey.shade300,
-                                      thickness: 1.7,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Text(
-                                              'MLG',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 5),
-                                              child: Text(
-                                                '03:18',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                            Text(
-                                              'May 31, 2021',
-                                              style: TextStyle(fontSize: 12),
-                                            )
-                                          ],
-                                        ),
-                                        Icon(
-                                          Icons.arrow_forward,
-                                          color: Colors.greenAccent,
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                              'JKT',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 5),
-                                              child: Text(
-                                                '08:40',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                            Text(
-                                              'May 31, 2021',
-                                              style: TextStyle(fontSize: 12),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ]),
+                              numOfTickets: '2 Seats',
+                              boardingFrom: 'MLG',
+                              boardingDate: 'May 10, 2021',
+                              boardingTime: '03:18',
+                              arrivalAt: 'JKL',
+                              arrivalDate: 'May 11, 2021',
+                              arrivalTime: '08:40',
                             ),
-                            Container(
-                              width: MediaQuery.of(context).size.width / 1.5,
-                              margin: EdgeInsets.only(right: 15),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey.shade200,
-                                ),
-                                borderRadius: BorderRadius.circular(10),
+                            MyBookings(
+                              bookingVehicle: 'Plane',
+                              bookingVehicleIcon: Icon(
+                                Icons.place_outlined,
+                                color: Colors.orange[350],
                               ),
-                              padding: EdgeInsets.all(13),
-                              child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.train,
-                                          color: Colors.orange[350],
-                                        ),
-                                        Text(
-                                          'Train',
-                                          style: TextStyle(
-                                            color: Colors.orange[300],
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Text(
-                                          '2 Seats',
-                                          style: TextStyle(
-                                            color: Colors.orange[200],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Divider(
-                                      color: Colors.grey.shade300,
-                                      thickness: 1.7,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Text(
-                                              'MLG',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 5),
-                                              child: Text(
-                                                '03:18',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                            Text(
-                                              'May 31, 2021',
-                                              style: TextStyle(fontSize: 12),
-                                            )
-                                          ],
-                                        ),
-                                        Icon(
-                                          Icons.arrow_forward,
-                                          color: Colors.greenAccent,
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                              'JKT',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 5),
-                                              child: Text(
-                                                '08:40',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                            Text(
-                                              'May 31, 2021',
-                                              style: TextStyle(fontSize: 12),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ]),
+                              numOfTickets: '3 Seats',
+                              boardingFrom: 'CGK',
+                              boardingDate: 'May 10, 2021',
+                              boardingTime: '03:50',
+                              arrivalAt: 'IGIA',
+                              arrivalDate: 'May 11, 2021',
+                              arrivalTime: '10:55',
                             ),
                           ],
                         ),
@@ -530,3 +335,4 @@ class _TicketBookingHomePageState extends State<TicketBookingHomePage> {
     );
   }
 }
+
